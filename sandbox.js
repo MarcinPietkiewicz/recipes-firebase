@@ -15,14 +15,25 @@ const addRecipe = (recipe, id) => {
     list.innerHTML += html;
 }
 
-// fetching recipes
-db.collection('recipes').get().then((snapshot) => {
-    // when we have the data 
-    snapshot.forEach(doc => {
-        addRecipe(doc.data(), doc.id);
+const removeRecipe = id => {
+    const recipes = document.querySelectorAll('li');
+    recipes.forEach(recipe => {
+        if (recipe.getAttribute('data-id') === id) {
+            recipe.remove();
+        }
     })
-}).catch(err => {
-    console.log(err)
+}
+
+// fetching recipes
+db.collection('recipes').onSnapshot(snapshot => {
+    snapshot.docChanges().forEach(change => {
+        const doc = change.doc;
+        if (change.type === 'added') {
+            addRecipe(doc.data(), doc.id);
+        } else if (change.type === 'removed') {
+            removeRecipe(doc.id);
+        }
+    })
 })
 
 // submitting recipe to firestore
@@ -41,12 +52,11 @@ form.addEventListener('submit', e => {
 
 })
 
-// deleting recipe
+// deleting recipe from the list and firebase
 list.addEventListener('click', e => {
     if (e.target.tagName === 'BUTTON') {
         const id = e.target.parentElement.getAttribute('data-id')
         db.collection('recipes').doc(id).delete().then(() => {
-            console.log('recipe deleted');
         });
     }
 
