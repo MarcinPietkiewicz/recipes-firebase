@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="shortcut icon" href="">
+    <title>Databases (Firebase)</title>
+</head>
+
+<body>
+    <div class="container my-5">
+        <h2>Recipes</h2>
+        <ul>
+            <li>Mushroom pie</li>
+            <li>Veg curry</li>
+        </ul>
+        <form>
+            <label for="recipe">Add a new recipe</label>
+            <div class="input-group">
+                <input type="text" class="form-control" id="recipe" required>
+                <div class="input-group-append">
+                    <input type="submit" value="add" class="btn btn-outline-secondary">
+                </div>
+            </div>
+        </form>
+
+    </div>
+
+
+
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/6.6.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/6.6.0/firebase-firestore.js"></script>
+
+
+    <script>
+        var firebaseConfig = {
+            apiKey: "AIzaSyA-Q8nt7tP95AIqfnWCdApAI7WN-pi_Lbg",
+            authDomain: "chat1-f0f01.firebaseapp.com",
+            databaseURL: "https://chat1-f0f01.firebaseio.com",
+            projectId: "chat1-f0f01",
+            storageBucket: "chat1-f0f01.appspot.com",
+            messagingSenderId: "490904671393",
+            appId: "1:490904671393:web:d63430e6959e02ef90cce0"
+        };
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.firestore();
+    </script>
+
+    <script src="sandbox.js"></script>
+</body>
+
+</html>
