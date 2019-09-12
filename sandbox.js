@@ -1,5 +1,6 @@
 const form = document.querySelector('form');
 const list = document.querySelector('ul');
+const button = document.querySelector('.unsubscribe')
 
 // adding recipe to DOM
 
@@ -24,8 +25,8 @@ const removeRecipe = id => {
     })
 }
 
-// fetching recipes
-db.collection('recipes').onSnapshot(snapshot => {
+// subscribe to database and update recipe list
+const unsub = db.collection('recipes').onSnapshot(snapshot => {
     snapshot.docChanges().forEach(change => {
         const doc = change.doc;
         if (change.type === 'added') {
@@ -47,7 +48,6 @@ form.addEventListener('submit', e => {
     };
 
     db.collection('recipes').add(recipe).then(() => {
-        console.log('recipe added')
     }).catch(err => { console.log(err) });
 
 })
@@ -59,6 +59,10 @@ list.addEventListener('click', e => {
         db.collection('recipes').doc(id).delete().then(() => {
         });
     }
+})
 
-
+// unsubscribe from database changes
+button.addEventListener('click', e => {
+    unsub();
+    console.log('unsubscribed from collection changes');
 })
